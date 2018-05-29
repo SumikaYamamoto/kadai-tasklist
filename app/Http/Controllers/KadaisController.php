@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Message; 
+use App\Kadai; 
 
 class KadaisController extends Controller
 {
@@ -17,7 +17,7 @@ class KadaisController extends Controller
      */
     public function index()
     {
-       $kadaiss = Kadai::all();
+       $kadais = Kadai::all();
 
         return view('kadais.index', [
             'kadais' => $kadais,
@@ -46,9 +46,9 @@ class KadaisController extends Controller
      */
     public function store(Request $request)
     {
-       $message = new Message;
-        $message->content = $request->content;
-        $message->save();
+       $kadai = new Kadai;
+        $kadai->content = $request->content;
+        $kadai->save();
 
         return redirect('/');
     }
@@ -76,10 +76,10 @@ class KadaisController extends Controller
      */
     public function edit($id)
     {
-       $message = Message::find($id);
+       $kadai = Kadai::find($id);
 
-        return view('messages.edit', [
-            'message' => $message,
+        return view('kadais.edit', [
+            'kadai' => $kadai,
         ]);
     }
 
