@@ -46,7 +46,12 @@ class KadaisController extends Controller
      */
     public function store(Request $request)
     {
-       $kadai = new Kadai;
+         $this->validate($request, [
+            'content' => 'required|max:191',
+        ]);
+
+        
+        $kadai = new Kadai;
         $kadai->content = $request->content;
         $kadai->save();
 
