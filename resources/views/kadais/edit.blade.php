@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <h1>id: {{ $message->id }} のメッセージ編集ページ</h1>
+    <h1>id: {{ $kadai->id }} のタスク編集ページ</h1>
 
-    {!! Form::model($message, ['route' => ['messages.update', $message->id], 'method' => 'put']) !!}
+    {!! Form::model($kadai, ['route' => ['kadais.update', $kadai->id], 'method' => 'put']) !!}
 
-        {!! Form::label('content', 'メッセージ:') !!}
+        {!! Form::label('content', 'タスク:') !!}
         {!! Form::text('content') !!}
 
         {!! Form::submit('更新') !!}
