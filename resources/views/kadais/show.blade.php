@@ -4,7 +4,7 @@
 
  <h1>id = {{ $kadai->id }} のタスク詳細ページ</h1>
 
-    <p>タイトル: {{ $message->title }}</p> 
+    <p>ステータス: {{ $kadai->status }}</p> 
     <p>タスク: {{ $kadai->content }}</p>
     
     {!! link_to_route('kadais.edit', 'このタスクを編集', ['id' => $kadai->id]) !!}

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTitleToKadaisTable extends Migration
+class AddStatusToKadaisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddTitleToKadaisTable extends Migration
     public function up()
     {
         Schema::table('kadais', function (Blueprint $table) {
-            $table->string('title');
+            $table->string('status', 10);
         });
     }
 
