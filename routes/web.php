@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'KadaisController@index'); 
+Route::get('/',  function () {
+    return view('welcome');
+});
  
 Route::resource('kadais', 'KadaisController');
 
