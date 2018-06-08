@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User; // add
+use App\User;
 
-class UsersController extends Controller
+class Userscontroller extends Controller
 {
     public function index()
     {

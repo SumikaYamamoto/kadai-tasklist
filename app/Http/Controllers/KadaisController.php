@@ -17,13 +17,21 @@ class KadaisController extends Controller
      */
     public function index()
     {
-       $kadais = Kadai::all();
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $kadais = $user->kadais()->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('kadais.index', [
-            'kadais' => $kadais,
-        ]);
+            $data = [
+                'user' => $user,
+                'kadais' => $kadais,
+            ];
+    
+            return view('kadais.index', ['kadais'=>$kadais]);
+        }else {
+            return view('welcome');
+        }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -52,10 +60,10 @@ class KadaisController extends Controller
         ]);
 
         
-        $kadai = new Kadai;
-        $kadai->status = $request->status;    // add
-        $kadai->content = $request->content;
-        $kadai->save();
+        $request->user()->kadais()->create([
+        'status' => $request->status,
+        'content' => $request->content,
+        ]);
 
         return redirect('/');
     }
@@ -69,10 +77,16 @@ class KadaisController extends Controller
     public function show($id)
     {
        $kadai = Kadai::find($id);
-
+        $auth_user = \Auth::user();
+        if($kadai-> user_id == $auth_user-> id){
+        
         return view('kadais.show', [
             'kadai' => $kadai,
         ]);
+        }
+        else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -83,11 +97,17 @@ class KadaisController extends Controller
      */
     public function edit($id)
     {
-       $kadai = Kadai::find($id);
-
+         $kadai = Kadai::find($id);
+        $auth_user = \Auth::user();
+        if($kadai-> user_id == $auth_user-> id){
+        
         return view('kadais.edit', [
             'kadai' => $kadai,
         ]);
+        }
+        else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -121,9 +141,12 @@ class KadaisController extends Controller
      */
     public function destroy($id)
     {
-       $kadai = Kadai::find($id);
-        $kadai->delete();
+        $kadai = \App\kadai::find($id);
 
-        return redirect('/');
+        if (\Auth::user()->id === $kadai->user_id) {
+            $kadai->delete();
+        }
+
+        return redirect()->back();
     }
 }

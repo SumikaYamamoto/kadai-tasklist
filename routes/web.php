@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/',  function () {
-    return view('welcome');
-});
+Route::get('/', 'KadaisController@index');
  
 Route::resource('kadais', 'KadaisController');
 
@@ -28,4 +26,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+    Route::resource('kadais', 'KadaisController', ['only' => ['store', 'destroy']]);
+    
 });
+
